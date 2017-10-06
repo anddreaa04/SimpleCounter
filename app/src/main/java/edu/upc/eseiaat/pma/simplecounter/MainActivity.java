@@ -12,30 +12,40 @@ public class MainActivity extends AppCompatActivity {
     private TextView counter_text;
 
 
-    private int number;
+    private int valor;
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("number", valor);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         counter_text=(TextView) findViewById(R.id.counter);
-        number=0;
+        valor =0;
+    if(savedInstanceState==null){
+        valor =0;
+    }else{
+       valor = savedInstanceState.getInt("number");
+        counter_text.setText(Integer.toString(valor));
+    }
     }
 
 
 public void plus (View v){
     Button btn_plus = (Button) v;
-        number++;
-    counter_text.setText(Integer.toString(number));
+        valor++;
+    counter_text.setText(Integer.toString(valor));
 
 }
 
     public void minus (View v){
         Button btn_minus = (Button) v;
-        number--;
-        counter_text.setText(Integer.toString(number));
+        valor--;
+        counter_text.setText(Integer.toString(valor));
     }
 
     public void finish (View v){
@@ -53,4 +63,5 @@ public void plus (View v){
         builder.setMessage(message);*/
         builder.create().show();
     }
-}
+
+    }
